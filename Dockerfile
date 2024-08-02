@@ -7,13 +7,14 @@ RUN npm install -g express
 WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+COPY --chown=1001:0 package*.json ./
 
 # install project dependencies
 RUN npm install
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
+COPY --chown=1001:0 . .
+RUN chmod 755 -R /app
 
 # build app for production with minification
 #RUN npm run build
